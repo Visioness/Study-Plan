@@ -1,12 +1,16 @@
 {% extends 'habit_tracker/layout.html' %}
 
 {% block title %}
-    <title>Habit Tracker</title>
+    Habit Tracker
 {% endblock %}
 
 {% block body %}
     <h1>{{ habit }}</h1>
     <div>
-        <p>Tracking your habit right now...</p>
+        <ul>
+            {% for entry in entries %}
+                <li>{{ entry.date }} - {{ entry.duration }} mins</li>
+            {% endfor %}
+        </ul>
     </div>
 {% endblock %}

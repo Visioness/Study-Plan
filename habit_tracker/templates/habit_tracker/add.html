@@ -1,0 +1,27 @@
+{% extends 'habit_tracker/layout.html' %}
+
+{% block title %}
+    Add Page
+{% endblock %}
+
+{% block body %}
+    <h1>Create New Habit</h1>
+
+    <div class="ml-3 mt-5 entry">
+        <form action="{% url 'habit_tracker:add_habit_entry' %}" method="post">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <input id="habit-name" type="text" name="name" placeholder="Name">
+            </div>
+            <div class="row mb-3">
+                <input id="habit-date" type="date" name="date" placeholder="Date">
+            </div>
+            <div class="row mb-3">
+                <input id="habitduration" type="number" name="duration" placeholder="Duration">
+            </div>
+            <div class="row mb-3">
+                <input type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+{% endblock %}

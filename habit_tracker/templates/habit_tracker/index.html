@@ -1,16 +1,18 @@
 {% extends 'habit_tracker/layout.html' %}
 
 {% block title %}
-    <title>Habit Tracker</title>
+    Habit Tracker
 {% endblock %}
 
 {% block body %}
-    <h1>Track Your Habits</h1>
+    <h1>Habits</h1>
     <div>
         <ul>
-            <li>Study Habits</li>
-            <li>Workout Habits</li>
-            <li>Eating Habits</li>
-        </ul>
+            {% for habit in habits %}
+                <li>
+                    <a href="{% url 'habit_tracker:track_habit' habit %}">{{ habit }}</a>
+                </li>
+            {% endfor %}
+        </ul>  
     </div>
 {% endblock %}
