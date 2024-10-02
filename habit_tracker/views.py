@@ -3,6 +3,10 @@ from .models import Habit
 from django.utils import timezone
 from . import util
 
+from datetime import datetime, timedelta
+from django.db.models import Max
+import json
+
 # Create your views here.
 def index(request):
     return render(request, "habit_tracker/index.html", {
@@ -11,6 +15,8 @@ def index(request):
 
 
 def track_habit(request, habit):
+    util.create_calendar(habit)
+
     return render(request, "habit_tracker/track.html", {
         "habit": habit,
         "entries": util.search_habits(habit)
@@ -33,7 +39,7 @@ def add_habit_entry(request):
             habit.save()
 
         else:
-            habit = Habit(name=name, date=date, duration=duration)
+            habit = Habit(name=name, date=date + timedelta(hours=3), duration=duration)
             habit.save()
 
         return redirect("habit_tracker:track_habit", habit.name)

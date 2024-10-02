@@ -1,16 +1,54 @@
 {% extends 'habit_tracker/layout.html' %}
 
 {% block title %}
-    Habit Tracker
+    <title>Habit Tracker</title>
 {% endblock %}
 
 {% block body %}
     <h1>{{ habit }}</h1>
+
     <div>
         <ul>
             {% for entry in entries %}
                 <li>{{ entry.date }} - {{ entry.duration }} mins</li>
             {% endfor %}
         </ul>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1-1</td>
+                    <td>1-1</td>
+                    <td>1-1</td>
+                    <td>1-1</td>
+                </tr>
+                
+                <tr>
+                    <td>1-2</td>
+                    <td>1-2</td>
+                    <td>1-2</td>
+                    <td>1-2</td>
+                </tr>
+                
+                <tr>
+                    <td>1-3</td>
+                    <td>1-3</td>
+                    <td>1-3</td>
+                    <td>1-3</td>
+                </tr>
+                
+            </tbody>
+        </table>
     </div>
 {% endblock %}
