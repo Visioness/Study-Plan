@@ -9,13 +9,13 @@ def list_habits():
 
 def search_habits(habit_name):
     entries = list(Habit.objects.filter(name=habit_name))
-    sorted_entries = sorted(entries, key=lambda x: x.date, reverse=True)
+    sorted_entries = sorted(entries, key=lambda x: x.date)
 
     return sorted_entries
 
 
 def create_calendar(habit_name):
-    for i in range(30):
+    for i in range(93):
         date = timezone.now() - timedelta(days=i) + timedelta(hours=3)
         if not Habit.objects.filter(name=habit_name, date=date):
             new_entry = Habit(
