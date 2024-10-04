@@ -7,80 +7,94 @@
 {% block body %}
     <h1>{{ habit }}</h1>
 
-    <div>
-        <ul>
-            {% for entry in entries %}
-                <li>{{ entry.date }} - {{ entry.duration }} mins</li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div>
-        <table class="table table-responsive table-dark">
+    <div class="container scroll">
+        <table>
             <thead>
                 <tr>
                     <td></td>
-                    <th scope="col" colspan="4">Month-1</th>
-                    <th scope="col" colspan="4">Month-2</th>
-                    <th scope="col" colspan="4">Month-3</th>
-                    <th scope="col" colspan="4">Month-4</th>
+                    <th scope="col" colspan="4" class="months">January</th>
+                    <th scope="col" colspan="4" class="months">February</th>
+                    <th scope="col" colspan="5" class="months">March</th>
+                    <th scope="col" colspan="4" class="months">April</th>
+                    <th scope="col" colspan="4" class="months">May</th>
+                    <th scope="col" colspan="5" class="months">June</th>
+                    <th scope="col" colspan="4" class="months">July</th>
+                    <th scope="col" colspan="5" class="months">August</th>
+                    <th scope="col" colspan="4" class="months">September</th>
+                    <th scope="col" colspan="4" class="months">October</th>
+                    <th scope="col" colspan="4" class="months">November</th>
+                    <th scope="col" colspan="4" class="months">December</th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <th>Monday</th>
+                    <th class="days">Monday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Monday' %}
-                            <td class="entries">{{ entry.date }}</td>
+                            <td>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                            </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>Tuesday</th>
+                    <th class="days">Tuesday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Tuesday' %}
-                            <td class="entries">{{ entry.date }}</td>
+                            <td>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                            </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>Wednesday</th>
+                    <th class="days">Wednesday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Wednesday' %}
-                            <td class="entries">{{ entry.date }}</td>
+                            <td>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                            </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>Thursday</th>
+                    <th class="days">Thursday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Thursday' %}
-                            <td class="entries">{{ entry.date }}</td>
+                            <td>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                            </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>Friday</th>
+                    <th class="days">Friday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Friday' %}
-                            <td class="entries">{{ entry.date }}</td>
+                            <td>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                            </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>Saturday</th>
+                    <th class="days">Saturday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Saturday' %}
-                            <td class="entries">{{ entry.date }}</td>
+                            <td>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                            </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th>Sunday</th>
+                    <th class="days">Sunday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Sunday' %}
-                            <td class="entries">{{ entry.date }}</td>
+                            <td>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                            </td>
                         {% endif %}
                     {% endfor %}
                 </tr>

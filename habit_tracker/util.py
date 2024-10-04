@@ -1,5 +1,5 @@
 from .models import Habit
-from datetime import timedelta
+from datetime import timedelta, datetime
 from django.utils import timezone
 
 
@@ -14,9 +14,20 @@ def search_habits(habit_name):
     return sorted_entries
 
 
-def create_calendar(habit_name):
-    for i in range(93):
-        date = timezone.now() - timedelta(days=i) + timedelta(hours=3)
+def create_calendar(habit_name, year):
+    entries = search_habits(habit_name)
+    
+    if entries:
+        start_date = entries[-1].date
+    else:
+        start_date = datetime(year, 1, 1)
+
+    current_date = datetime.today().date()
+    day_difference = (current_date - start_date).days
+
+    for i in range(day_difference + 1):
+        date = start_date + timedelta(days=i) 
+        
         if not Habit.objects.filter(name=habit_name, date=date):
             new_entry = Habit(
                 name=habit_name,

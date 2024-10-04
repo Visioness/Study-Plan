@@ -15,7 +15,7 @@ def index(request):
 
 
 def track_habit(request, habit):
-    util.create_calendar(habit)
+    util.create_calendar(habit, 2024)
 
     return render(request, "habit_tracker/track.html", {
         "habit": habit,
