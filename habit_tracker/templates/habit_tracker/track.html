@@ -12,88 +12,130 @@
             <thead>
                 <tr>
                     <td></td>
-                    <th scope="col" colspan="4" class="months">January</th>
-                    <th scope="col" colspan="4" class="months">February</th>
-                    <th scope="col" colspan="5" class="months">March</th>
-                    <th scope="col" colspan="4" class="months">April</th>
-                    <th scope="col" colspan="4" class="months">May</th>
-                    <th scope="col" colspan="5" class="months">June</th>
-                    <th scope="col" colspan="4" class="months">July</th>
-                    <th scope="col" colspan="5" class="months">August</th>
-                    <th scope="col" colspan="4" class="months">September</th>
-                    <th scope="col" colspan="4" class="months">October</th>
-                    <th scope="col" colspan="4" class="months">November</th>
-                    <th scope="col" colspan="4" class="months">December</th>
+                    <th scope="col" colspan="4" class="months heading">Jan</th>
+                    <th scope="col" colspan="4" class="months heading">Feb</th>
+                    <th scope="col" colspan="5" class="months heading">March</th>
+                    <th scope="col" colspan="4" class="months heading">April</th>
+                    <th scope="col" colspan="4" class="months heading">May</th>
+                    <th scope="col" colspan="5" class="months heading">June</th>
+                    <th scope="col" colspan="4" class="months heading">July</th>
+                    <th scope="col" colspan="5" class="months heading">Aug</th>
+                    <th scope="col" colspan="4" class="months heading">Sept</th>
+                    <th scope="col" colspan="4" class="months heading">Oct</th>
+                    <th scope="col" colspan="4" class="months heading">Nov</th>
+                    <th scope="col" colspan="4" class="months heading">Dec</th>
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <th class="days">Monday</th>
+                    <th class="days heading">Monday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Monday' %}
                             <td>
-                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
+                                    <div class="day-inner" style="background-color: rgba(120, 0, 120, {{ entry.intensity|floatformat:2 }});"></div>
+                                    <div class="tooltip">
+                                        Date: {{ entry.date }}<br>
+                                        Duration: {{ entry.duration }} minutes
+                                    </div>
+                                </div>
                             </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th class="days">Tuesday</th>
+                    <th class="days heading">Tuesday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Tuesday' %}
                             <td>
-                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
+                                    <div class="day-inner" style="background-color: rgba(120, 0, 120, {{ entry.intensity|floatformat:2 }});"></div>
+                                    <div class="tooltip">
+                                        Date: {{ entry.date }} <br>
+                                        Duration: {{ entry.duration }} minutes
+                                    </div>
+                                </div>
                             </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th class="days">Wednesday</th>
+                    <th class="days heading">Wednesday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Wednesday' %}
                             <td>
-                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
+                                    <div class="day-inner" style="background-color: rgba(120, 0, 120, {{ entry.intensity|floatformat:2 }});"></div>
+                                    <div class="tooltip">
+                                        Date: {{ entry.date }} <br>
+                                        Duration: {{ entry.duration }} minutes
+                                    </div>
+                                </div>
                             </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th class="days">Thursday</th>
+                    <th class="days heading">Thursday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Thursday' %}
                             <td>
-                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
+                                    <div class="day-inner" style="background-color: rgba(120, 0, 120, {{ entry.intensity|floatformat:2 }});"></div>
+                                    <div class="tooltip">
+                                        Date: {{ entry.date }} <br>
+                                        Duration: {{ entry.duration }} minutes
+                                    </div>
+                                </div>
                             </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th class="days">Friday</th>
+                    <th class="days heading">Friday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Friday' %}
                             <td>
-                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
+                                    <div class="day-inner" style="background-color: rgba(120, 0, 120, {{ entry.intensity|floatformat:2 }});"></div>
+                                    <div class="tooltip">
+                                        Date: {{ entry.date }} <br>
+                                        Duration: {{ entry.duration }} minutes
+                                    </div>
+                                </div>
                             </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th class="days">Saturday</th>
+                    <th class="days heading">Saturday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Saturday' %}
                             <td>
-                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
+                                    <div class="day-inner" style="background-color: rgba(120, 0, 120, {{ entry.intensity|floatformat:2 }});"></div>
+                                    <div class="tooltip">
+                                        Date: {{ entry.date }} <br>
+                                        Duration: {{ entry.duration }} minutes
+                                    </div>
+                                </div>
                             </td>
                         {% endif %}
                     {% endfor %}
                 </tr>
                 <tr>
-                    <th class="days">Sunday</th>
+                    <th class="days heading">Sunday</th>
                     {% for entry in entries %}
                         {% if entry.date|date:'l' == 'Sunday' %}
                             <td>
-                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}" style="background-color: rgba(120, 0, 120, 0.2);"></div>
+                                <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
+                                    <div class="day-inner" style="background-color: rgba(120, 0, 120, {{ entry.intensity|floatformat:2 }});"></div>
+                                    <div class="tooltip">
+                                        Date: {{ entry.date }} <br>
+                                        Duration: {{ entry.duration }} minutes
+                                    </div>
+                                </div>
                             </td>
                         {% endif %}
                     {% endfor %}

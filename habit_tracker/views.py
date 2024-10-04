@@ -16,10 +16,23 @@ def index(request):
 
 def track_habit(request, habit):
     util.create_calendar(habit, 2024)
+    entries = Habit.objects.filter(name=habit)
+    calendar_data = []
+
+    max_duration = entries.aggregate(Max('duration'))['duration__max'] or 1
+
+    for entry in entries:
+        intensity = entry.duration / max_duration if max_duration != 0 else 0
+
+        calendar_data.append({
+            'date': entry.date,
+            'duration': entry.duration,
+            'intensity': intensity,
+        })
 
     return render(request, "habit_tracker/track.html", {
         "habit": habit,
-        "entries": util.search_habits(habit)
+        "entries": calendar_data,
     })
 
 
@@ -33,7 +46,7 @@ def add_habit_entry(request):
             date = timezone.now()
 
         habit = Habit.objects.filter(name=name, date=date).first()
-        
+
         if habit:
             habit.duration = habit.duration + int(duration)
             habit.save()
@@ -43,6 +56,6 @@ def add_habit_entry(request):
             habit.save()
 
         return redirect("habit_tracker:track_habit", habit.name)
-            
+
     else:
         return render(request, "habit_tracker/add.html")

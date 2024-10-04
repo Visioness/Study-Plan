@@ -16,18 +16,18 @@ def search_habits(habit_name):
 
 def create_calendar(habit_name, year):
     entries = search_habits(habit_name)
-    
+
     if entries:
         start_date = entries[-1].date
     else:
         start_date = datetime(year, 1, 1)
 
-    current_date = datetime.today().date()
+    current_date = datetime(year, 12, 31).date()
     day_difference = (current_date - start_date).days
 
     for i in range(day_difference + 1):
-        date = start_date + timedelta(days=i) 
-        
+        date = start_date + timedelta(days=i)
+
         if not Habit.objects.filter(name=habit_name, date=date):
             new_entry = Habit(
                 name=habit_name,
