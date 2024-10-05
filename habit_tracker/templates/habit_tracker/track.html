@@ -5,17 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ habit }}</h1>
-
-    <div>
-        <ul>
-            {% for entry in entries %}
-                <li>{{ entry.date }} - {{ entry.duration }} mins</li>
-            {% endfor %}
-        </ul>
+    <div id="habit">
+        <h1>{{ habit }}</h1>
     </div>
 
-    <div class="container scroll">
+    <div id="container" class="container scroll">
         <table>
             <thead>
                 <tr>
@@ -30,7 +24,7 @@
                     <th scope="col" colspan="5" class="months heading">Aug</th>
                     <th scope="col" colspan="4" class="months heading">Sept</th>
                     <th scope="col" colspan="4" class="months heading">Oct</th>
-                    <th scope="col" colspan="4" class="months heading">Nov</th>
+                    <th scope="col" colspan="5" class="months heading">Nov</th>
                     <th scope="col" colspan="4" class="months heading">Dec</th>
                 </tr>
             </thead>
@@ -43,11 +37,7 @@
                             {% if entry.date|date:'l' == day %}
                                 <td>
                                     <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
-                                        <div class="day-inner" style="background-color: rgba(120, 0, 120, {{ entry.intensity|floatformat:2 }});"></div>
-                                        <div class="tooltip">
-                                            Date: {{ entry.date }}<br>
-                                            Duration: {{ entry.duration }} minutes
-                                        </div>
+                                        <div class="day-inner" style="background-color: rgba(255, 85, 176, {{ entry.intensity|floatformat:2 }});"></div>
                                     </div>
                                 </td>
                             {% endif %}
@@ -57,4 +47,6 @@
             </tbody>
         </table>
     </div>
+
+    <div id="tooltip"></div>
 {% endblock %}

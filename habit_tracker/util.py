@@ -20,7 +20,7 @@ def create_calendar(habit_name, year):
     if entries:
         start_date = entries[-1].date
     else:
-        start_date = datetime(year, 1, 1)
+        start_date = datetime(year, 1, 1).date()
 
     current_date = datetime(year, 12, 31).date()
     day_difference = (current_date - start_date).days

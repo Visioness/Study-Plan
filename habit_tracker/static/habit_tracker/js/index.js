@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     days.forEach(day => {
         day.addEventListener('mouseenter', function() {
-            const tooltip = this.querySelector(".tooltip");
-            tooltip.style.display = 'block';
+            const tooltip = document.getElementById("tooltip");
+            tooltip.innerHTML = `<b>Date:</b> ${day.dataset.date}<br><b>Duration</b> ${day.dataset.duration}`;
         });
 
         day.addEventListener('mouseleave', function() {
-            const tooltip = this.querySelector(".tooltip");
-            tooltip.style.display = 'none';
+            const tooltip = document.getElementById("tooltip");
+            tooltip.innerHTML = '';
         });
     });
 });
