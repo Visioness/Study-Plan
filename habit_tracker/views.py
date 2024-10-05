@@ -33,6 +33,7 @@ def track_habit(request, habit):
     return render(request, "habit_tracker/track.html", {
         "habit": habit,
         "entries": calendar_data,
+        "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
     })
 
 
