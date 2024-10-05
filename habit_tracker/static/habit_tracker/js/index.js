@@ -3,22 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     days.forEach(day => {
         day.addEventListener('mouseenter', function() {
-            console.log('Hovering over day'); // Debugging statement
             const tooltip = this.querySelector(".tooltip");
-            if (tooltip) {
-                tooltip.style.display = 'block';
-                console.log('Tooltip shown'); // Debugging statement
-            } else {
-                console.log('Tooltip not found'); // Debugging statement
-            }
+            tooltip.style.display = 'block';
         });
 
         day.addEventListener('mouseleave', function() {
             const tooltip = this.querySelector(".tooltip");
-            if (tooltip) {
-                tooltip.style.display = 'none';
-                console.log('Tooltip hidden'); // Debugging statement
-            }
+            tooltip.style.display = 'none';
         });
     });
 });
