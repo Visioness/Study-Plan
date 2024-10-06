@@ -38,6 +38,10 @@
                                 <td>
                                     <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
                                         <div class="day-inner" style="background-color: rgba(255, 85, 176, {{ entry.intensity|floatformat:2 }});"></div>
+                                        <div id="tooltip">
+                                            <b>Date:</b> {{ entry.date }}<br>
+                                            <b>Duration:</b> {{ entry.duration }}
+                                        </div>
                                     </div>
                                 </td>
                             {% endif %}
@@ -47,6 +51,4 @@
             </tbody>
         </table>
     </div>
-
-    <div id="tooltip"></div>
 {% endblock %}

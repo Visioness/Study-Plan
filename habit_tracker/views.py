@@ -15,7 +15,6 @@ def index(request):
 
 
 def track_habit(request, habit):
-    util.create_calendar(habit, 2024)
     entries = Habit.objects.filter(name=habit)
     calendar_data = []
 
@@ -42,6 +41,9 @@ def add_habit_entry(request):
         name = request.POST.get("name")
         date = request.POST.get("date")
         duration = request.POST.get("duration")
+
+        if name not in util.list_habits():
+            util.create_calendar(name, 2024)
 
         if not date:
             date = timezone.now()
