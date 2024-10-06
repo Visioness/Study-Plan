@@ -1,6 +1,5 @@
 from .models import Habit
 from datetime import timedelta, datetime
-from django.utils import timezone
 
 
 def list_habits():

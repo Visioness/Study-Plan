@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Habit
-from django.utils import timezone
 from . import util
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from django.db.models import Max
-import json
 
 # Create your views here.
 def index(request):
@@ -46,7 +44,7 @@ def add_habit_entry(request):
             util.create_calendar(name, 2024)
 
         if not date:
-            date = timezone.now()
+            date = datetime.now().date()
 
         habit = Habit.objects.filter(name=name, date=date).first()
 
@@ -55,7 +53,7 @@ def add_habit_entry(request):
             habit.save()
 
         else:
-            habit = Habit(name=name, date=date + timedelta(hours=3), duration=duration)
+            habit = Habit(name=name, date=date, duration=duration)
             habit.save()
 
         return redirect("habit_tracker:track_habit", habit.name)
