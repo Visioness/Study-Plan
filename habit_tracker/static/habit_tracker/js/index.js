@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+    window.onload = function() {
+        const scrollContainer = document.querySelector('.container');
+        scrollContainer.scrollLeft = 0;
+    };
+    
+    window.onresize = function() {
+        const scrollContainer = document.querySelector('.container');
+        scrollContainer.scrollLeft = 0;
+    };    
+    
     const days = document.querySelectorAll('.day');
 
     days.forEach(day => {

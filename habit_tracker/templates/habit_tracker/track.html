@@ -9,23 +9,23 @@
         <h1>{{ habit }}</h1>
     </div>
 
-    <div id="container" class="container scroll">
+    <div class="table-container scroll">
         <table>
             <thead>
                 <tr>
                     <td></td>
-                    <th scope="col" colspan="4" class="months heading">Jan</th>
-                    <th scope="col" colspan="4" class="months heading">Feb</th>
-                    <th scope="col" colspan="5" class="months heading">March</th>
-                    <th scope="col" colspan="4" class="months heading">April</th>
-                    <th scope="col" colspan="4" class="months heading">May</th>
-                    <th scope="col" colspan="5" class="months heading">June</th>
-                    <th scope="col" colspan="4" class="months heading">July</th>
-                    <th scope="col" colspan="5" class="months heading">Aug</th>
-                    <th scope="col" colspan="4" class="months heading">Sept</th>
-                    <th scope="col" colspan="4" class="months heading">Oct</th>
-                    <th scope="col" colspan="5" class="months heading">Nov</th>
-                    <th scope="col" colspan="4" class="months heading">Dec</th>
+                    <th colspan="4" class="months heading">Jan</th>
+                    <th colspan="4" class="months heading">Feb</th>
+                    <th colspan="5" class="months heading">March</th>
+                    <th colspan="4" class="months heading">April</th>
+                    <th colspan="4" class="months heading">May</th>
+                    <th colspan="5" class="months heading">June</th>
+                    <th colspan="4" class="months heading">July</th>
+                    <th colspan="5" class="months heading">Aug</th>
+                    <th colspan="4" class="months heading">Sept</th>
+                    <th colspan="4" class="months heading">Oct</th>
+                    <th colspan="5" class="months heading">Nov</th>
+                    <th colspan="4" class="months heading">Dec</th>
                 </tr>
             </thead>
 
@@ -33,14 +33,26 @@
                 {% for day in weekdays %}
                     <tr>
                         <th class="days heading">{{ day }}</th>
+
                         {% for entry in entries %}
                             {% if entry.date|date:'l' == day %}
                                 <td>
                                     <div class="day" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
                                         <div class="day-inner" style="background-color: rgba(255, 85, 176, {{ entry.intensity|floatformat:2 }});"></div>
-                                        <div id="tooltip">
-                                            <b>Date:</b> {{ entry.date }}<br>
-                                            <b>Duration:</b> {{ entry.duration }}
+                                        
+                                        <div class="container" id="tooltip">
+                                            <div class="row mx-auto">
+                                                <b>Date:</b> {{ entry.date }}
+                                            </div>
+                                            
+                                            <div class="row mx-auto">
+                                                <b>Duration:</b> {{ entry.duration }}
+                                            </div>
+
+                                            <div class="row mx-auto">
+                                                <button class="tooltip-button" id="edit-button" type="button">E</button>
+                                                <button class="tooltip-button" id="remove-button" type="button">R</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
