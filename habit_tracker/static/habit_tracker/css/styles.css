@@ -122,12 +122,12 @@ h1 {
 }
 
 #edit-button {
-    background-color: rgba(20, 50, 50, 0.6);
+    background-color: rgba(20, 50, 50, 0.7);
     color: green;
     border-color: green;
 }
 
 #edit-button:hover {
-    background-color: rgba(0, 128, 0, 0.5);
+    background-color: rgba(0, 128, 0, 0.7);
     color: rgb(255, 255, 255);
 }
