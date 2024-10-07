@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Habit
 from . import util
-
+import json
 from datetime import datetime
 from django.db.models import Max
 
@@ -13,25 +13,43 @@ def index(request):
 
 
 def track_habit(request, habit):
-    entries = Habit.objects.filter(name=habit)
-    calendar_data = []
+    if request.method == "POST":
+        # TODO
+        data = json.loads(request.body)
+        date = data.get('habitDate')
+        new_duration = data.get('habitDuration')
 
-    max_duration = entries.aggregate(Max('duration'))['duration__max'] or 1
+        edited_habit = Habit.objects.filter(name=habit, date=date).first()
+        edited_habit.duration = new_duration
+        edited_habit.save()
 
-    for entry in entries:
-        intensity = entry.duration / max_duration if max_duration != 0 else 0
+        return JsonResponse({'success': True, 'message': 'Habit updated successfully!'})
 
-        calendar_data.append({
-            'date': entry.date,
-            'duration': entry.duration,
-            'intensity': intensity,
+    elif request.method == "DELETE":
+        # TODO
+        pass
+
+    else:
+        entries = Habit.objects.filter(name=habit)
+        calendar_data = []
+
+        max_duration = entries.aggregate(Max('duration'))['duration__max'] or 1
+
+        for entry in entries:
+            intensity = entry.duration / max_duration if max_duration != 0 else 0
+
+            calendar_data.append({
+                'name': habit,
+                'date': entry.date,
+                'duration': entry.duration,
+                'intensity': intensity,
+            })
+
+        return render(request, "habit_tracker/track.html", {
+            "habit": habit,
+            "entries": calendar_data,
+            "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         })
-
-    return render(request, "habit_tracker/track.html", {
-        "habit": habit,
-        "entries": calendar_data,
-        "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    })
 
 
 def add_habit_entry(request):
