@@ -26,7 +26,15 @@ def track_habit(request, habit):
         edited_habit.duration = new_duration
         edited_habit.save()
 
-        return JsonResponse({'success': True, 'message': 'Duration updated successfully'})
+        entries = Habit.objects.filter(name=habit)
+        max_duration = entries.aggregate(Max('duration'))['duration__max'] or 1
+        data = util.update_data(entries, max_duration)
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Habit updated successfully.',
+            'entries': data
+        })
 
     # DELETE request
     elif request.method == "DELETE":
@@ -38,28 +46,26 @@ def track_habit(request, habit):
         edited_habit.duration = 0
         edited_habit.save()
 
-        return JsonResponse({'success': True, 'message': 'Duration removed successfully'})
+        entries = Habit.objects.filter(name=habit)
+        max_duration = entries.aggregate(Max('duration'))['duration__max'] or 1
+        data = util.update_data(entries, max_duration)
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Habit updated successfully.',
+            'entries': data
+        })
 
     # GET request
     else:
         entries = Habit.objects.filter(name=habit)
-        calendar_data = []
-
         max_duration = entries.aggregate(Max('duration'))['duration__max'] or 1
 
-        for entry in entries:
-            intensity = entry.duration / max_duration if max_duration != 0 else 0
-
-            calendar_data.append({
-                'name': habit,
-                'date': entry.date,
-                'duration': entry.duration,
-                'intensity': intensity,
-            })
+        data = util.update_data(entries, max_duration)
 
         return render(request, "habit_tracker/track.html", {
             "habit": habit,
-            "entries": calendar_data,
+            "entries": data,
             "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
         })
 

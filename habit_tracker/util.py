@@ -35,3 +35,18 @@ def create_calendar(habit_name, year):
             )
 
             new_entry.save()
+
+
+def update_data(entries, max_duration,):
+    data = []
+    for entry in entries:
+        intensity = entry.duration / max_duration if max_duration != 0 else 0
+
+        data.append({
+            'name': entry.name,
+            'date': entry.date,
+            'duration': entry.duration,
+            'intensity': round(intensity, 2),
+        })
+    
+    return data

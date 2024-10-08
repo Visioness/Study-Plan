@@ -17,47 +17,48 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function () {
             const dayDiv = this.closest('.day');
             const habitDate = dayDiv.getAttribute('data-date');
-            console.log(habitDate)
+            
+            const durationElement = dayDiv.querySelector('#text-duration');
 
             if (this.id == 'edit-button') {
-                console.log('Clicked Edit');
                 let newDuration = prompt('Enter the new duration.');
                 newDuration = parseInt(newDuration, 10);
-                
-                if (Number.isInteger(newDuration)) {
-                    fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': getCSRFToken(),
-                        },
-                        body: JSON.stringify({
-                            habitDuration: newDuration,
-                            habitDate: habitDate,
-                        })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        return response.json();  // Ensure it's returning valid JSON
-                    })
-                    .then(data => {
-                        if (data.success) {
-                            window.location.reload();
-
-                        } else {
-                            alert('Failed to update habit');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
+                if (isNaN(newDuration) || newDuration < 0) {
+                    alert('Please enter a valid non-negative integer for duration.');
+                    return;
                 }
+                
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken(),
+                    },
+                    body: JSON.stringify({
+                        habitDuration: newDuration,
+                        habitDate: habitDate,
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();  // Ensure it's returning valid JSON
+                })
+                .then(data => {
+                    if (data.success) {
+                        durationElement.textContent = newDuration;
+                        updateIntensities(data.entries);
 
+                    } else {
+                        alert('Failed to update habit');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
 
             } else if (this.id == 'remove-button') {
-                console.log('Clicked Remove');
                 fetch(url, {
                     method: 'DELETE',
                     headers: {
@@ -76,7 +77,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(data => {
                     if (data.success) {
-                        window.location.reload();
+                        durationElement.textContent = 0;
+                        updateIntensities(data.entries);
 
                     } else {
                         alert('Failed to update habit');
@@ -96,7 +98,7 @@ function updateIntensities(entries) {
         const dayDiv = document.querySelector(`.day[data-date="${entry.date}"]`);
         if (dayDiv) {
             const dayInner = dayDiv.querySelector('.day-inner');
-            dayInner.style.backgroundColor = `rgba(255, 85, 176, ${entry.intensity})`;
+            dayInner.style.backgroundColor = `rgba(240, 94, 155, ${entry.intensity})`;
         }
     });
 }

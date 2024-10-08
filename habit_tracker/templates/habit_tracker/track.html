@@ -38,7 +38,7 @@
                             {% if entry.date|date:'l' == day %}
                                 <td>
                                     <div class="day" data-name="{{ entry.name }}" data-date="{{ entry.date|date:'Y-m-d' }}" data-duration="{{ entry.duration }}">
-                                        <div class="day-inner" style="background-color: rgb(240, 94, 155, {{ entry.intensity|floatformat:2 }});"></div>
+                                        <div class="day-inner" style="background-color: rgb(240, 94, 155, {{ entry.intensity }});"></div>
 
                                         <div class="container" id="tooltip">
                                             <div class="row mx-auto">
