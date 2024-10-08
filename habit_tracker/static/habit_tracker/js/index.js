@@ -16,18 +16,16 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.tooltip-button').forEach(button => {
         button.addEventListener('click', function () {
             const dayDiv = this.closest('.day');
-
-            const habitName = dayDiv.getAttribute('data-name');
             const habitDate = dayDiv.getAttribute('data-date');
-            const habitDuration = dayDiv.getAttribute('data-duration');
+            console.log(habitDate)
 
             if (this.id == 'edit-button') {
                 console.log('Clicked Edit');
-                const newDuration = prompt('Enter the new duration.');
-                const element = dayDiv.querySelector('#text-duration');
-
-                if (newDuration && Number.isInteger(parseInt(newDuration, 10))) {
-                    fetch(`/track/${habitName}/`, {
+                let newDuration = prompt('Enter the new duration.');
+                newDuration = parseInt(newDuration, 10);
+                
+                if (Number.isInteger(newDuration)) {
+                    fetch(url, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -46,7 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .then(data => {
                         if (data.success) {
-                            alert(data.message);  // Show success message
+                            window.location.reload();
+
                         } else {
                             alert('Failed to update habit');
                         }
@@ -56,15 +55,61 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                 }
 
-                console.log(`${element.innerHTML}`);
 
             } else if (this.id == 'remove-button') {
                 console.log('Clicked Remove');
+                fetch(url, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken(),
+                    },
+                    body: JSON.stringify({
+                        habitDate: habitDate,
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();  // Ensure it's returning valid JSON
+                })
+                .then(data => {
+                    if (data.success) {
+                        window.location.reload();
+
+                    } else {
+                        alert('Failed to update habit');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             }
         });
     });
 });
 
+// Function to update intensities for all habit entries
+function updateIntensities(entries) {
+    entries.forEach(entry => {
+        const dayDiv = document.querySelector(`.day[data-date="${entry.date}"]`);
+        if (dayDiv) {
+            const dayInner = dayDiv.querySelector('.day-inner');
+            dayInner.style.backgroundColor = `rgba(255, 85, 176, ${entry.intensity})`;
+        }
+    });
+}
+
 function getCSRFToken() {
-    return document.querySelector('[name=csrfmiddlewaretoken]').value;
+    let csrfToken = null;
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith('csrftoken=')) {
+            csrfToken = decodeURIComponent(cookie.substring('csrftoken='.length));
+            break;
+        }
+    }
+    return csrfToken;
 }

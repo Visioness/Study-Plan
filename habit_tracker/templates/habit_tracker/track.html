@@ -37,13 +37,13 @@
                         {% for entry in entries %}
                             {% if entry.date|date:'l' == day %}
                                 <td>
-                                    <div class="day" data-name="{{ entry.name }}" data-date="{{ entry.date }}" data-duration="{{ entry.duration }}">
-                                        <div class="day-inner" style="background-color: rgba(255, 85, 176, {{ entry.intensity|floatformat:2 }});"></div>
+                                    <div class="day" data-name="{{ entry.name }}" data-date="{{ entry.date|date:'Y-m-d' }}" data-duration="{{ entry.duration }}">
+                                        <div class="day-inner" style="background-color: rgb(240, 94, 155, {{ entry.intensity|floatformat:2 }});"></div>
 
                                         <div class="container" id="tooltip">
                                             <div class="row mx-auto">
                                                 <span><b>Date:</b></span>
-                                                <span id="text-date">{{ entry.date }}</span>
+                                                <span id="text-date">{{ entry.date|date:'Y-m-d' }}</span>
                                             </div>
 
                                             <div class="row mx-auto" id="tooltip-duration">
@@ -54,7 +54,7 @@
                                             <div class="row mx-auto">
                                                 <button class="tooltip-button" id="edit-button" type="button">E</button>
                                                 <button class="tooltip-button" id="remove-button" type="button">R</button>
-                                                {% csrf_token %}
+                                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                                             </div>
                                         </div>
                                     </div>
@@ -66,4 +66,8 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        const url = "{% url 'habit_tracker:track_habit' habit %}";
+    </script>
 {% endblock %}

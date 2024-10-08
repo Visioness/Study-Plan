@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.db.models import Max
+from django.urls import reverse
+from datetime import datetime
 from .models import Habit
 from . import util
 import json
-from datetime import datetime
-from django.db.models import Max
 
 # Create your views here.
 def index(request):
@@ -13,6 +15,7 @@ def index(request):
 
 
 def track_habit(request, habit):
+    # POST request
     if request.method == "POST":
         # TODO
         data = json.loads(request.body)
@@ -23,12 +26,21 @@ def track_habit(request, habit):
         edited_habit.duration = new_duration
         edited_habit.save()
 
-        return JsonResponse({'success': True, 'message': 'Habit updated successfully!'})
+        return JsonResponse({'success': True, 'message': 'Duration updated successfully'})
 
+    # DELETE request
     elif request.method == "DELETE":
         # TODO
-        pass
+        data = json.loads(request.body)
+        date = data.get('habitDate')
 
+        edited_habit = Habit.objects.filter(name=habit, date=date).first()
+        edited_habit.duration = 0
+        edited_habit.save()
+
+        return JsonResponse({'success': True, 'message': 'Duration removed successfully'})
+
+    # GET request
     else:
         entries = Habit.objects.filter(name=habit)
         calendar_data = []
