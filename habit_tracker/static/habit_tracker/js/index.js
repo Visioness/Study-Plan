@@ -77,9 +77,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .then(data => {
                     if (data.success) {
-                        durationElement.textContent = 0;
-                        updateIntensities(data.entries);
-
+                        if (durationElement.textContent !== '0') {
+                            console.log("Removing");
+                            durationElement.textContent = 0;
+                            updateIntensities(data.entries);
+                        }
+                    
                     } else {
                         alert('Failed to update habit');
                     }
